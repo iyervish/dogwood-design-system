@@ -1,0 +1,51 @@
+export interface NavItem {
+  label: string;
+  href: string;
+  children?: NavItem[];
+}
+
+export const navigation: NavItem[] = [
+  {
+    label: 'Foundations',
+    href: '/foundations',
+    children: [
+      { label: 'Principles', href: '/foundations/principles' },
+      { label: 'Color', href: '/foundations/color' },
+      { label: 'Typography', href: '/foundations/typography' },
+      { label: 'Spacing', href: '/foundations/spacing' },
+      { label: 'Elevation', href: '/foundations/elevation' },
+      { label: 'Icons', href: '/foundations/icons' },
+      { label: 'Motion', href: '/foundations/motion' },
+    ],
+  },
+  {
+    label: 'Components',
+    href: '/components',
+    children: [
+      { label: 'Button', href: '/components/button' },
+      { label: 'Input', href: '/components/input' },
+      { label: 'Select', href: '/components/select' },
+      { label: 'Checkbox', href: '/components/checkbox' },
+      { label: 'Radio', href: '/components/radio' },
+      { label: 'TextArea', href: '/components/textarea' },
+      { label: 'Alert', href: '/components/alert' },
+      { label: 'Card', href: '/components/card' },
+      { label: 'Badge', href: '/components/badge' },
+      { label: 'Table', href: '/components/table' },
+      { label: 'Breadcrumb', href: '/components/breadcrumb' },
+      { label: 'Accordion', href: '/components/accordion' },
+    ],
+  },
+  {
+    label: 'Patterns',
+    href: '/patterns',
+  },
+  {
+    label: 'Templates',
+    href: '/templates',
+  },
+  {
+    label: 'About',
+    href: '/about',
+  },
+];

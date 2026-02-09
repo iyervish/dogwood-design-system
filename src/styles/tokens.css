@@ -1,0 +1,278 @@
+/*
+ * Dogwood — Design Tokens
+ * 3-layer architecture: System → Theme → Component
+ *
+ * System tokens are named after Virginia geography.
+ * Theme tokens map system tokens to semantic roles.
+ */
+
+:root {
+  /* ===== SYSTEM TOKENS (Primitives) ===== */
+
+  /* Blue Ridge — Deep navy, primary brand */
+  --blue-ridge-50: #f0f4f8;
+  --blue-ridge-100: #d9e2ec;
+  --blue-ridge-200: #bcccdc;
+  --blue-ridge-300: #9fb3c8;
+  --blue-ridge-400: #829ab1;
+  --blue-ridge-500: #627d98;
+  --blue-ridge-600: #486581;
+  --blue-ridge-700: #334e68;
+  --blue-ridge-800: #243b53;
+  --blue-ridge-900: #1b365d;
+  --blue-ridge-950: #102a43;
+
+  /* Chesapeake — Teal, informational & interactive */
+  --chesapeake-50: #effcf6;
+  --chesapeake-100: #c6f7e2;
+  --chesapeake-200: #8eedc7;
+  --chesapeake-300: #65d6ad;
+  --chesapeake-400: #3ebd93;
+  --chesapeake-500: #27ab83;
+  --chesapeake-600: #0e7c7b;
+  --chesapeake-700: #0c6b6a;
+  --chesapeake-800: #0a5a59;
+  --chesapeake-900: #084948;
+  --chesapeake-950: #053837;
+
+  /* Piedmont — Warm brown, earthy neutral */
+  --piedmont-50: #fdf8f3;
+  --piedmont-100: #faeadb;
+  --piedmont-200: #f3d5b5;
+  --piedmont-300: #e6b98a;
+  --piedmont-400: #d49a6a;
+  --piedmont-500: #8b4513;
+  --piedmont-600: #7a3c11;
+  --piedmont-700: #6a340f;
+  --piedmont-800: #592b0d;
+  --piedmont-900: #49230b;
+  --piedmont-950: #381b08;
+
+  /* Dogwood — Gold, accent & attention (Virginia state flower) */
+  --dogwood-50: #fefdf4;
+  --dogwood-100: #fdf9e3;
+  --dogwood-200: #faf0c0;
+  --dogwood-300: #f5e08e;
+  --dogwood-400: #eecb55;
+  --dogwood-500: #d4a832;
+  --dogwood-600: #b8892a;
+  --dogwood-700: #996c22;
+  --dogwood-800: #7a5520;
+  --dogwood-900: #66461f;
+  --dogwood-950: #3b270e;
+
+  /* Shenandoah — Forest green, success */
+  --shenandoah-50: #f0faf4;
+  --shenandoah-100: #d4edda;
+  --shenandoah-200: #a8d8b9;
+  --shenandoah-300: #7bc49a;
+  --shenandoah-400: #5cb57e;
+  --shenandoah-500: #4a7c59;
+  --shenandoah-600: #3d6b4a;
+  --shenandoah-700: #305a3c;
+  --shenandoah-800: #24492f;
+  --shenandoah-900: #1a3823;
+  --shenandoah-950: #112718;
+
+  /* Cardinal — Vibrant red, error/emphasis */
+  --cardinal-50: #fef2f4;
+  --cardinal-100: #fde3e8;
+  --cardinal-200: #fbc8d3;
+  --cardinal-300: #f89daf;
+  --cardinal-400: #f26b84;
+  --cardinal-500: #c41e3a;
+  --cardinal-600: #b01a34;
+  --cardinal-700: #93162c;
+  --cardinal-800: #7a1325;
+  --cardinal-900: #68111f;
+  --cardinal-950: #3b0912;
+
+  /* Slate — Neutral blue-gray */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
+
+  /* ===== THEME TOKENS (Semantic — Light Mode) ===== */
+  --color-primary: var(--blue-ridge-600);
+  --color-primary-hover: var(--blue-ridge-700);
+  --color-primary-light: var(--blue-ridge-100);
+  --color-primary-foreground: #ffffff;
+
+  --color-info: var(--chesapeake-600);
+  --color-info-hover: var(--chesapeake-700);
+  --color-info-light: var(--chesapeake-100);
+  --color-info-foreground: #ffffff;
+
+  /* Backwards-compatible alias */
+  --color-secondary: var(--color-info);
+  --color-secondary-hover: var(--color-info-hover);
+  --color-secondary-light: var(--color-info-light);
+  --color-secondary-foreground: var(--color-info-foreground);
+
+  --color-accent: var(--dogwood-500);
+  --color-accent-hover: var(--dogwood-600);
+  --color-accent-light: var(--dogwood-100);
+  --color-accent-foreground: var(--dogwood-950);
+
+  --color-success: var(--shenandoah-500);
+  --color-success-light: var(--shenandoah-100);
+  --color-error: var(--cardinal-500);
+  --color-error-light: var(--cardinal-100);
+  --color-warning: var(--dogwood-600);
+  --color-warning-light: var(--dogwood-100);
+
+  --color-warm: var(--piedmont-500);
+  --color-warm-light: var(--piedmont-100);
+  --color-warm-hover: var(--piedmont-600);
+
+  --color-surface: #ffffff;
+  --color-surface-raised: var(--slate-50);
+  --color-surface-overlay: #ffffff;
+
+  --color-background: #ffffff;
+  --color-background-subtle: var(--slate-50);
+
+  --color-text: var(--slate-900);
+  --color-text-secondary: var(--slate-600);
+  --color-text-muted: var(--slate-400);
+  --color-text-inverse: #ffffff;
+
+  --color-border: var(--slate-200);
+  --color-border-strong: var(--slate-300);
+  --color-border-focus: var(--blue-ridge-500);
+
+  /* ===== TYPOGRAPHY ===== */
+  --font-heading: 'Merriweather', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+
+  /* ===== SPACING (8px base grid) ===== */
+  --space-0: 0;
+  --space-0-5: 0.125rem;
+  --space-1: 0.25rem;
+  --space-1-5: 0.375rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ===== ELEVATION ===== */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* ===== TRANSITIONS ===== */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* ===== LAYOUT ===== */
+  --sidebar-width: 280px;
+  --topbar-height: 64px;
+  --toc-width: 220px;
+  --content-max-width: 860px;
+}
+
+/* ===== DARK MODE OVERRIDES ===== */
+.dark {
+  --color-primary: var(--blue-ridge-300);
+  --color-primary-hover: var(--blue-ridge-200);
+  --color-primary-light: var(--blue-ridge-900);
+  --color-primary-foreground: var(--slate-900);
+
+  --color-info: var(--chesapeake-300);
+  --color-info-hover: var(--chesapeake-200);
+  --color-info-light: var(--chesapeake-900);
+  --color-info-foreground: var(--slate-900);
+
+  --color-secondary: var(--color-info);
+  --color-secondary-hover: var(--color-info-hover);
+  --color-secondary-light: var(--color-info-light);
+  --color-secondary-foreground: var(--color-info-foreground);
+
+  --color-accent: var(--dogwood-400);
+  --color-accent-hover: var(--dogwood-300);
+  --color-accent-light: var(--dogwood-900);
+  --color-accent-foreground: var(--dogwood-50);
+
+  --color-success: var(--shenandoah-400);
+  --color-success-light: var(--shenandoah-900);
+  --color-error: var(--cardinal-400);
+  --color-error-light: var(--cardinal-900);
+  --color-warning: var(--dogwood-400);
+  --color-warning-light: var(--dogwood-900);
+
+  --color-warm: var(--piedmont-400);
+  --color-warm-light: var(--piedmont-900);
+  --color-warm-hover: var(--piedmont-300);
+
+  --color-surface: var(--slate-800);
+  --color-surface-raised: var(--slate-700);
+  --color-surface-overlay: var(--slate-800);
+
+  --color-background: var(--slate-900);
+  --color-background-subtle: var(--slate-800);
+
+  --color-text: var(--slate-50);
+  --color-text-secondary: var(--slate-300);
+  --color-text-muted: var(--slate-500);
+  --color-text-inverse: var(--slate-900);
+
+  --color-border: var(--slate-700);
+  --color-border-strong: var(--slate-600);
+  --color-border-focus: var(--blue-ridge-400);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}

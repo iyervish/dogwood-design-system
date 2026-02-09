@@ -111,4 +111,4 @@ This is an open-source demonstration project. Contributions, issues, and feature
 ## Links
 
 - [Documentation Site](https://dogwood.studiopimmit.com) (coming soon)
-- [GitHub Repository](https://github.com/studiopimmit/dogwood-system)
+- [GitHub Repository](https://github.com/iyervish/dogwood-design-system)

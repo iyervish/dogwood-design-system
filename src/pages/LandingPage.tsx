@@ -103,7 +103,7 @@ export default function LandingPage() {
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
               {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
             </button>
-            <a href="https://github.com/studiopimmit/dogwood-system" target="_blank" rel="noopener noreferrer"
+            <a href="https://github.com/iyervish/dogwood-design-system" target="_blank" rel="noopener noreferrer"
               className="p-2 rounded-md transition-colors" style={{ color: '#9fb3c8' }} aria-label="GitHub">
               <Github size={16} />
             </a>
@@ -573,7 +573,7 @@ export default function LandingPage() {
               <ArrowRight size={18} />
             </Link>
             <a
-              href="https://github.com/studiopimmit/dogwood-system"
+              href="https://github.com/iyervish/dogwood-design-system"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-base font-semibold no-underline"

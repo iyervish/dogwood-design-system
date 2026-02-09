@@ -74,7 +74,7 @@ export default function TopBar({ theme, onToggleTheme, sidebarOpen, onToggleSide
         </button>
 
         <a
-          href="https://github.com/studiopimmit/dogwood-system"
+          href="https://github.com/iyervish/dogwood-design-system"
           target="_blank"
           rel="noopener noreferrer"
           className="p-2 rounded-md transition-colors"

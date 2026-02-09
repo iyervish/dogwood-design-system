@@ -62,7 +62,7 @@ export default function AboutPage() {
 
       <div className="flex gap-3 mt-6">
         <a
-          href="https://github.com/studiopimmit/va-design-system"
+          href="https://github.com/iyervish/dogwood-design-system"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium no-underline border transition-colors"

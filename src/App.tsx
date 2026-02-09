@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import ScrollToTop from './components/docs/ScrollToTop';
 import LandingPage from './pages/LandingPage';
 import DocsLayout from './components/docs/DocsLayout';
@@ -41,6 +42,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
         </Route>
       </Routes>
+      <Analytics />
     </Router>
   );
 }

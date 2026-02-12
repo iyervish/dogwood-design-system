@@ -14,6 +14,7 @@ import MotionPage from './pages/foundations/MotionPage';
 import ComponentsOverview from './pages/components/ComponentsOverview';
 import ComponentPage from './pages/components/ComponentPage';
 import PatternsOverview from './pages/patterns/PatternsOverview';
+import PatternPage from './pages/patterns/PatternPage';
 import TemplatesOverview from './pages/templates/TemplatesOverview';
 import AboutPage from './pages/AboutPage';
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/components" element={<ComponentsOverview />} />
           <Route path="/components/:slug" element={<ComponentPage />} />
           <Route path="/patterns" element={<PatternsOverview />} />
+          <Route path="/patterns/:slug" element={<PatternPage />} />
           <Route path="/templates" element={<TemplatesOverview />} />
           <Route path="/about" element={<AboutPage />} />
         </Route>

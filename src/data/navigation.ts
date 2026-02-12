@@ -49,6 +49,11 @@ export const navigation: NavItem[] = [
   {
     label: 'Patterns',
     href: '/patterns',
+    children: [
+      { label: 'Form Pattern', href: '/patterns/form' },
+      { label: 'Search Results', href: '/patterns/search-results' },
+      { label: 'Status Tracker', href: '/patterns/status-tracker' },
+    ],
   },
   {
     label: 'Templates',

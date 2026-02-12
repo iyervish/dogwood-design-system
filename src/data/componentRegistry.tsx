@@ -14,6 +14,63 @@ import { Badge } from '../components/ui/Badge';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../components/ui/Table';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { Accordion, AccordionItem } from '../components/ui/Accordion';
+import { Banner } from '../components/ui/Banner';
+import { Footer } from '../components/ui/Footer';
+import { GovBanner } from '../components/ui/GovBanner';
+import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '../components/ui/Modal';
+import { Pagination } from '../components/ui/Pagination';
+import { Search } from '../components/ui/Search';
+import { SideNavigation } from '../components/ui/SideNavigation';
+import { StepIndicator } from '../components/ui/StepIndicator';
+import { Tabs, TabList, Tab, TabPanel } from '../components/ui/Tabs';
+import { Tooltip } from '../components/ui/Tooltip';
+
+// ─── Interactive preview helpers (need useState) ──────
+function ModalPreviewWrapper() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <ModalHeader><ModalTitle>Confirm Action</ModalTitle></ModalHeader>
+        <ModalBody>Are you sure you want to submit this application? This action cannot be undone.</ModalBody>
+        <ModalFooter>
+          <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={() => setOpen(false)}>Confirm</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+
+function ModalSizePreview({ size, label }: { size: 'sm' | 'md' | 'lg'; label: string }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button variant="outline" size="sm" onClick={() => setOpen(true)}>{label}</Button>
+      <Modal open={open} onClose={() => setOpen(false)} size={size}>
+        <ModalHeader><ModalTitle>{label} Modal</ModalTitle></ModalHeader>
+        <ModalBody>This is a {label.toLowerCase()} modal dialog.</ModalBody>
+        <ModalFooter>
+          <Button variant="outline" onClick={() => setOpen(false)}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+
+function PaginationPreviewWrapper({ showFirstLast, size }: { showFirstLast?: boolean; size?: 'sm' | 'md' }) {
+  const [page, setPage] = React.useState(5);
+  return (
+    <Pagination
+      totalPages={10}
+      currentPage={page}
+      onPageChange={setPage}
+      showFirstLast={showFirstLast}
+      size={size}
+    />
+  );
+}
 
 interface VariantPreview {
   title: string;
@@ -741,5 +798,820 @@ export const componentRegistry: Record<string, ComponentRegistryEntry> = {
       'Don\'t use for critical content that users must see',
       'Don\'t hide primary actions inside accordions',
     ],
+  },
+
+  // ─── Banner ────────────────────────────────────────────
+  banner: {
+    defaultPreview: (
+      <div className="w-full space-y-3">
+        <Banner variant="info" title="System Update">
+          Scheduled maintenance will occur this Saturday from 2–4 AM EST.
+        </Banner>
+        <Banner variant="success" title="Application Submitted">
+          Your application has been submitted successfully.
+        </Banner>
+        <Banner variant="warning" title="Browser Not Supported">
+          Please upgrade to a modern browser for the best experience.
+        </Banner>
+        <Banner variant="error" title="Service Unavailable">
+          Online services are temporarily unavailable. Please try again later.
+        </Banner>
+      </div>
+    ),
+    defaultCode: `<Banner variant="info" title="System Update">
+  Scheduled maintenance will occur this Saturday.
+</Banner>
+<Banner variant="success" title="Application Submitted">
+  Your application has been submitted successfully.
+</Banner>
+<Banner variant="warning" title="Browser Not Supported">
+  Please upgrade to a modern browser.
+</Banner>
+<Banner variant="error" title="Service Unavailable">
+  Online services are temporarily unavailable.
+</Banner>`,
+    variants: [
+      {
+        title: 'Dismissible',
+        preview: (
+          <Banner variant="info" title="New Feature Available" dismissible>
+            You can now renew your license online. Try it today!
+          </Banner>
+        ),
+        code: `<Banner variant="info" title="New Feature" dismissible>
+  You can now renew your license online.
+</Banner>`,
+      },
+    ],
+    propDefinitions: [
+      { name: 'variant', type: "'info' | 'success' | 'warning' | 'error'", default: "'info'", description: 'The severity/visual style of the banner' },
+      { name: 'title', type: 'string', description: 'Optional bold heading text' },
+      { name: 'children', type: 'ReactNode', description: 'Banner description content' },
+      { name: 'dismissible', type: 'boolean', default: 'false', description: 'Show dismiss button' },
+      { name: 'onDismiss', type: '() => void', description: 'Called when dismiss button is clicked' },
+      { name: 'icon', type: 'ReactNode | null', description: 'Custom icon. Pass null to hide' },
+    ],
+    accessibility: [
+      'Uses role="alert" for error/warning variants for immediate screen reader announcement',
+      'Uses role="status" for info/success variants',
+      'Dismiss button has aria-label="Dismiss banner"',
+      'Left border accent provides visual distinction beyond color',
+      'Default icons provide visual redundancy with text',
+    ],
+    dos: [
+      'Use for site-wide announcements and system messages',
+      'Place at the top of the page content area',
+      'Use concise, actionable messaging',
+      'Match variant to severity level',
+    ],
+    donts: [
+      'Don\'t use banners for inline form validation (use Alert instead)',
+      'Don\'t stack more than 2 banners at once',
+      'Don\'t use error variant for non-critical information',
+    ],
+    usageCode: `// System maintenance notice
+<Banner variant="warning" title="Scheduled Maintenance">
+  The DMV online portal will be unavailable on Saturday,
+  March 15 from 2:00 AM to 4:00 AM EST.
+</Banner>
+
+// Dismissible new feature announcement
+<Banner variant="info" title="New Feature" dismissible
+  onDismiss={() => setDismissed(true)}>
+  Online license renewal is now available!
+</Banner>`,
+  },
+
+  // ─── Footer ────────────────────────────────────────────
+  footer: {
+    defaultPreview: (
+      <Footer
+        siteName="Virginia DMV"
+        linkGroups={[
+          {
+            title: 'Services',
+            links: [
+              { label: 'License Renewal', href: '#' },
+              { label: 'Vehicle Registration', href: '#' },
+              { label: 'ID Cards', href: '#' },
+            ],
+          },
+          {
+            title: 'About',
+            links: [
+              { label: 'About Us', href: '#' },
+              { label: 'Contact', href: '#' },
+              { label: 'Careers', href: '#' },
+            ],
+          },
+        ]}
+      />
+    ),
+    defaultCode: `<Footer
+  siteName="Virginia DMV"
+  linkGroups={[
+    {
+      title: 'Services',
+      links: [
+        { label: 'License Renewal', href: '/services/license' },
+        { label: 'Vehicle Registration', href: '/services/vehicle' },
+        { label: 'ID Cards', href: '/services/id' },
+      ],
+    },
+    {
+      title: 'About',
+      links: [
+        { label: 'About Us', href: '/about' },
+        { label: 'Contact', href: '/contact' },
+        { label: 'Careers', href: '/careers' },
+      ],
+    },
+  ]}
+/>`,
+    variants: [
+      {
+        title: 'Slim Variant',
+        preview: (
+          <Footer
+            variant="slim"
+            siteName="Virginia.gov"
+            linkGroups={[{
+              title: 'Links',
+              links: [
+                { label: 'Privacy Policy', href: '#' },
+                { label: 'Accessibility', href: '#' },
+                { label: 'Contact', href: '#' },
+              ],
+            }]}
+          />
+        ),
+        code: `<Footer
+  variant="slim"
+  siteName="Virginia.gov"
+  linkGroups={[{
+    title: 'Links',
+    links: [
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Accessibility', href: '/accessibility' },
+      { label: 'Contact', href: '/contact' },
+    ],
+  }]}
+/>`,
+      },
+    ],
+    propDefinitions: [
+      { name: 'siteName', type: 'string', description: 'Organization or site name' },
+      { name: 'linkGroups', type: 'FooterLinkGroup[]', description: 'Groups of links with titles' },
+      { name: 'socialLinks', type: '{ label, href, icon }[]', description: 'Social media icon links' },
+      { name: 'copyright', type: 'string', description: 'Custom copyright text' },
+      { name: 'logo', type: 'ReactNode', description: 'Logo element' },
+      { name: 'variant', type: "'default' | 'slim'", default: "'default'", description: 'Footer layout variant' },
+    ],
+    accessibility: [
+      'Uses semantic <footer> element with implicit contentinfo role',
+      'Navigation sections wrapped in <nav> with aria-label',
+      'Social links have aria-label for screen readers',
+      'Link groups use heading hierarchy for structure',
+    ],
+    dos: [
+      'Include links to privacy policy and accessibility statement',
+      'Use the slim variant for simple applications',
+      'Keep link groups organized by topic',
+    ],
+    donts: [
+      'Don\'t include critical navigation only in the footer',
+      'Don\'t use more than 4 link groups in the default variant',
+      'Don\'t omit copyright information',
+    ],
+  },
+
+  // ─── GovBanner ─────────────────────────────────────────
+  'gov-banner': {
+    defaultPreview: (
+      <div className="w-full border rounded-lg overflow-hidden" style={{ borderColor: 'var(--color-border)' }}>
+        <GovBanner />
+      </div>
+    ),
+    defaultCode: `<GovBanner />`,
+    variants: [
+      {
+        title: 'Spanish',
+        preview: (
+          <div className="w-full border rounded-lg overflow-hidden" style={{ borderColor: 'var(--color-border)' }}>
+            <GovBanner language="es" />
+          </div>
+        ),
+        code: `<GovBanner language="es" />`,
+      },
+    ],
+    propDefinitions: [
+      { name: 'language', type: "'en' | 'es'", default: "'en'", description: 'Language for banner content' },
+      { name: 'className', type: 'string', description: 'Additional CSS classes' },
+    ],
+    accessibility: [
+      'Toggle button uses aria-expanded to indicate state',
+      'Expandable content uses role="region" with aria-label',
+      'aria-controls links toggle button to content panel',
+      'Content is keyboard accessible via Tab and Enter/Space',
+    ],
+    dos: [
+      'Place at the very top of every government website page',
+      'Use the default English variant for primary pages',
+      'Provide Spanish variant for bilingual sites',
+    ],
+    donts: [
+      'Don\'t modify the banner text or structure',
+      'Don\'t hide or remove on any page',
+      'Don\'t place other content above the gov banner',
+    ],
+    usageCode: `// At the top of your App layout
+<GovBanner />
+<Header />
+<main>{children}</main>
+<Footer />`,
+  },
+
+  // ─── Modal ─────────────────────────────────────────────
+  modal: {
+    defaultPreview: (
+      <ModalPreviewWrapper />
+    ),
+    defaultCode: `const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>Open Modal</Button>
+
+<Modal open={open} onClose={() => setOpen(false)}>
+  <ModalHeader>
+    <ModalTitle>Confirm Action</ModalTitle>
+  </ModalHeader>
+  <ModalBody>
+    Are you sure you want to submit this application?
+  </ModalBody>
+  <ModalFooter>
+    <Button variant="outline" onClick={() => setOpen(false)}>
+      Cancel
+    </Button>
+    <Button>Confirm</Button>
+  </ModalFooter>
+</Modal>`,
+    variants: [
+      {
+        title: 'Sizes',
+        preview: (
+          <div className="flex flex-wrap gap-3">
+            <ModalSizePreview size="sm" label="Small" />
+            <ModalSizePreview size="md" label="Medium" />
+            <ModalSizePreview size="lg" label="Large" />
+          </div>
+        ),
+        code: `<Modal open={open} onClose={onClose} size="sm">...</Modal>
+<Modal open={open} onClose={onClose} size="md">...</Modal>
+<Modal open={open} onClose={onClose} size="lg">...</Modal>`,
+      },
+    ],
+    propDefinitions: [
+      { name: 'open', type: 'boolean', required: true, description: 'Whether the modal is open' },
+      { name: 'onClose', type: '() => void', required: true, description: 'Called when modal requests closing' },
+      { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Width of the modal dialog' },
+      { name: 'closeOnBackdropClick', type: 'boolean', default: 'true', description: 'Close on backdrop click' },
+      { name: 'closeOnEscape', type: 'boolean', default: 'true', description: 'Close on Escape key' },
+      { name: 'showCloseButton', type: 'boolean', default: 'true', description: 'Show X close button' },
+    ],
+    accessibility: [
+      'Uses role="dialog" with aria-modal="true"',
+      'Focus is trapped within the modal while open',
+      'Escape key closes the modal',
+      'Focus returns to trigger element on close',
+      'Body scroll is locked while modal is open',
+      'Close button has aria-label="Close dialog"',
+    ],
+    dos: [
+      'Use for confirmations and important decisions',
+      'Provide clear actions in the footer (confirm/cancel)',
+      'Keep modal content focused and concise',
+      'Always include a way to close the modal',
+    ],
+    donts: [
+      'Don\'t use modals for simple notifications (use Alert)',
+      'Don\'t nest modals within modals',
+      'Don\'t make modals too large on mobile',
+      'Don\'t remove the close button without providing another way to close',
+    ],
+    usageCode: `// Confirmation dialog
+const [open, setOpen] = useState(false);
+
+<Button variant="destructive" onClick={() => setOpen(true)}>
+  Delete Account
+</Button>
+
+<Modal open={open} onClose={() => setOpen(false)} size="sm">
+  <ModalHeader>
+    <ModalTitle>Delete Account?</ModalTitle>
+  </ModalHeader>
+  <ModalBody>
+    This action is permanent and cannot be undone.
+  </ModalBody>
+  <ModalFooter>
+    <Button variant="outline" onClick={() => setOpen(false)}>
+      Cancel
+    </Button>
+    <Button variant="destructive" onClick={handleDelete}>
+      Delete
+    </Button>
+  </ModalFooter>
+</Modal>`,
+  },
+
+  // ─── Pagination ────────────────────────────────────────
+  pagination: {
+    defaultPreview: (
+      <PaginationPreviewWrapper />
+    ),
+    defaultCode: `const [page, setPage] = useState(1);
+
+<Pagination
+  totalPages={10}
+  currentPage={page}
+  onPageChange={setPage}
+/>`,
+    variants: [
+      {
+        title: 'With First/Last',
+        preview: (
+          <PaginationPreviewWrapper showFirstLast />
+        ),
+        code: `<Pagination
+  totalPages={20}
+  currentPage={page}
+  onPageChange={setPage}
+  showFirstLast
+/>`,
+      },
+      {
+        title: 'Small Size',
+        preview: (
+          <PaginationPreviewWrapper size="sm" />
+        ),
+        code: `<Pagination
+  totalPages={10}
+  currentPage={page}
+  onPageChange={setPage}
+  size="sm"
+/>`,
+      },
+    ],
+    propDefinitions: [
+      { name: 'totalPages', type: 'number', required: true, description: 'Total number of pages' },
+      { name: 'currentPage', type: 'number', required: true, description: 'Current page (1-indexed)' },
+      { name: 'onPageChange', type: '(page: number) => void', required: true, description: 'Called when a page is selected' },
+      { name: 'siblings', type: 'number', default: '1', description: 'Sibling pages shown around current' },
+      { name: 'showFirstLast', type: 'boolean', default: 'false', description: 'Show first/last page buttons' },
+      { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Button size' },
+    ],
+    accessibility: [
+      'Uses <nav> with aria-label="Pagination"',
+      'Current page marked with aria-current="page"',
+      'All buttons have descriptive aria-labels',
+      'Disabled buttons use visual opacity indicator',
+      'Ellipsis elements hidden from screen readers',
+    ],
+    dos: [
+      'Use for large datasets that need to be split across pages',
+      'Show the current page clearly',
+      'Include previous/next navigation',
+    ],
+    donts: [
+      'Don\'t use for fewer than 2 pages',
+      'Don\'t show too many page numbers (use siblings prop)',
+      'Don\'t use as a substitute for infinite scroll on mobile',
+    ],
+  },
+
+  // ─── Search ────────────────────────────────────────────
+  search: {
+    defaultPreview: (
+      <div className="w-full max-w-sm">
+        <Search placeholder="Search Virginia services..." />
+      </div>
+    ),
+    defaultCode: `<Search placeholder="Search Virginia services..." onSearch={handleSearch} />`,
+    variants: [
+      {
+        title: 'With Visible Label',
+        preview: (
+          <div className="w-full max-w-sm">
+            <Search label="Search DMV Services" showLabel placeholder="License, registration..." />
+          </div>
+        ),
+        code: `<Search label="Search DMV Services" showLabel
+  placeholder="License, registration..." />`,
+      },
+      {
+        title: 'Sizes',
+        preview: (
+          <div className="w-full max-w-sm space-y-3">
+            <Search size="sm" placeholder="Small search" />
+            <Search size="md" placeholder="Medium search" />
+            <Search size="lg" placeholder="Large search" />
+          </div>
+        ),
+        code: `<Search size="sm" placeholder="Small search" />
+<Search size="md" placeholder="Medium search" />
+<Search size="lg" placeholder="Large search" />`,
+      },
+    ],
+    propDefinitions: [
+      { name: 'label', type: 'string', default: "'Search'", description: 'Label text (visually hidden by default)' },
+      { name: 'showLabel', type: 'boolean', default: 'false', description: 'Show label visually' },
+      { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Input size' },
+      { name: 'onSearch', type: '(value: string) => void', description: 'Called on Enter key' },
+      { name: 'onClear', type: '() => void', description: 'Called when clear button is clicked' },
+      { name: 'clearable', type: 'boolean', default: 'true', description: 'Show clear button when input has value' },
+      { name: 'placeholder', type: 'string', default: "'Search...'", description: 'Placeholder text' },
+    ],
+    accessibility: [
+      'Wrapper uses role="search" landmark',
+      'Label is always present (visually hidden by default)',
+      'Clear button has aria-label="Clear search"',
+      'Input uses type="search" and role="searchbox"',
+      'Focus ring visible on keyboard navigation',
+    ],
+    dos: [
+      'Place in prominent location for key search functionality',
+      'Use a descriptive placeholder for context',
+      'Provide the clearable option for better UX',
+    ],
+    donts: [
+      'Don\'t use for filtering small lists (use Select instead)',
+      'Don\'t hide the search icon',
+      'Don\'t omit the label (even if visually hidden)',
+    ],
+    usageCode: `<Search
+  label="Search Services"
+  placeholder="License renewal, vehicle registration..."
+  onSearch={(query) => router.push(\`/search?q=\${query}\`)}
+  onClear={() => setResults([])}
+/>`,
+  },
+
+  // ─── SideNavigation ────────────────────────────────────
+  'side-navigation': {
+    defaultPreview: (
+      <div className="w-64 border rounded-lg overflow-hidden" style={{ borderColor: 'var(--color-border)' }}>
+        <SideNavigation
+          items={[
+            { label: 'Dashboard', href: '#', active: true },
+            { label: 'Applications', href: '#' },
+            {
+              label: 'Services',
+              children: [
+                { label: 'License Renewal', href: '#' },
+                { label: 'Vehicle Registration', href: '#' },
+                { label: 'ID Cards', href: '#' },
+              ],
+            },
+            { label: 'Settings', href: '#' },
+          ]}
+        />
+      </div>
+    ),
+    defaultCode: `<SideNavigation
+  items={[
+    { label: 'Dashboard', href: '/dashboard', active: true },
+    { label: 'Applications', href: '/applications' },
+    {
+      label: 'Services',
+      children: [
+        { label: 'License Renewal', href: '/services/license' },
+        { label: 'Vehicle Registration', href: '/services/vehicle' },
+        { label: 'ID Cards', href: '/services/id' },
+      ],
+    },
+    { label: 'Settings', href: '/settings' },
+  ]}
+  onItemClick={(href) => navigate(href)}
+/>`,
+    propDefinitions: [
+      { name: 'items', type: 'SideNavItem[]', required: true, description: 'Navigation items, supports nesting' },
+      { name: 'onItemClick', type: '(href: string) => void', description: 'Called when a nav item is clicked' },
+      { name: 'className', type: 'string', description: 'Additional CSS classes' },
+    ],
+    accessibility: [
+      'Uses <nav> with aria-label="Side navigation"',
+      'Active item marked with aria-current="page"',
+      'Parent items with children use aria-expanded',
+      'Proper nested list structure (<ul>/<li>)',
+      'Keyboard accessible via Tab and Enter/Space',
+    ],
+    dos: [
+      'Use for secondary navigation in dashboards and portals',
+      'Highlight the current page/section',
+      'Keep nesting to 2 levels maximum',
+    ],
+    donts: [
+      'Don\'t use as primary site navigation',
+      'Don\'t nest more than 2 levels deep',
+      'Don\'t include too many items (use grouping instead)',
+    ],
+  },
+
+  // ─── StepIndicator ────────────────────────────────────
+  'step-indicator': {
+    defaultPreview: (
+      <StepIndicator
+        currentStep={1}
+        steps={[
+          { label: 'Personal Info' },
+          { label: 'Documentation' },
+          { label: 'Review' },
+          { label: 'Submit' },
+        ]}
+      />
+    ),
+    defaultCode: `<StepIndicator
+  currentStep={1}
+  steps={[
+    { label: 'Personal Info' },
+    { label: 'Documentation' },
+    { label: 'Review' },
+    { label: 'Submit' },
+  ]}
+/>`,
+    variants: [
+      {
+        title: 'Vertical with Descriptions',
+        preview: (
+          <div className="max-w-xs">
+            <StepIndicator
+              orientation="vertical"
+              currentStep={2}
+              steps={[
+                { label: 'Application Received', description: 'Jan 15, 2025' },
+                { label: 'Under Review', description: 'Jan 18, 2025' },
+                { label: 'Processing', description: 'In progress' },
+                { label: 'Complete' },
+              ]}
+            />
+          </div>
+        ),
+        code: `<StepIndicator
+  orientation="vertical"
+  currentStep={2}
+  steps={[
+    { label: 'Application Received', description: 'Jan 15, 2025' },
+    { label: 'Under Review', description: 'Jan 18, 2025' },
+    { label: 'Processing', description: 'In progress' },
+    { label: 'Complete' },
+  ]}
+/>`,
+      },
+    ],
+    propDefinitions: [
+      { name: 'steps', type: '{ label: string; description?: string }[]', required: true, description: 'Array of step definitions' },
+      { name: 'currentStep', type: 'number', required: true, description: 'Current step index (0-based)' },
+      { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout direction' },
+    ],
+    accessibility: [
+      'Container has aria-label="Progress"',
+      'Current step marked with aria-current="step"',
+      'Steps are ordered list items (<ol>/<li>)',
+      'Screen reader text announces step status (completed/current/upcoming)',
+      'Check icon is hidden from screen readers via aria-hidden',
+    ],
+    dos: [
+      'Use for multi-step forms and application processes',
+      'Show clear labels for each step',
+      'Use vertical orientation for status tracking',
+    ],
+    donts: [
+      'Don\'t use for more than 7 steps (simplify the process instead)',
+      'Don\'t skip steps in the visual progression',
+      'Don\'t use for non-linear processes',
+    ],
+    usageCode: `const [step, setStep] = useState(0);
+
+<StepIndicator
+  currentStep={step}
+  steps={[
+    { label: 'Personal Information' },
+    { label: 'Upload Documents' },
+    { label: 'Review & Submit' },
+  ]}
+/>
+
+{step === 0 && <PersonalInfoForm onNext={() => setStep(1)} />}
+{step === 1 && <DocumentUpload onNext={() => setStep(2)} />}
+{step === 2 && <ReviewSubmit onSubmit={handleSubmit} />}`,
+  },
+
+  // ─── Tabs ──────────────────────────────────────────────
+  tabs: {
+    defaultPreview: (
+      <Tabs defaultValue="overview">
+        <TabList>
+          <Tab value="overview">Overview</Tab>
+          <Tab value="details">Details</Tab>
+          <Tab value="history">History</Tab>
+        </TabList>
+        <TabPanel value="overview">
+          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+            View your account overview, recent activity, and quick actions.
+          </p>
+        </TabPanel>
+        <TabPanel value="details">
+          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+            Personal details, contact information, and preferences.
+          </p>
+        </TabPanel>
+        <TabPanel value="history">
+          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+            View your transaction and activity history.
+          </p>
+        </TabPanel>
+      </Tabs>
+    ),
+    defaultCode: `<Tabs defaultValue="overview">
+  <TabList>
+    <Tab value="overview">Overview</Tab>
+    <Tab value="details">Details</Tab>
+    <Tab value="history">History</Tab>
+  </TabList>
+  <TabPanel value="overview">Overview content...</TabPanel>
+  <TabPanel value="details">Details content...</TabPanel>
+  <TabPanel value="history">History content...</TabPanel>
+</Tabs>`,
+    variants: [
+      {
+        title: 'With Disabled Tab',
+        preview: (
+          <Tabs defaultValue="active">
+            <TabList>
+              <Tab value="active">Active</Tab>
+              <Tab value="pending">Pending</Tab>
+              <Tab value="archived" disabled>Archived</Tab>
+            </TabList>
+            <TabPanel value="active">
+              <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Active applications list.</p>
+            </TabPanel>
+            <TabPanel value="pending">
+              <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Pending applications list.</p>
+            </TabPanel>
+          </Tabs>
+        ),
+        code: `<Tabs defaultValue="active">
+  <TabList>
+    <Tab value="active">Active</Tab>
+    <Tab value="pending">Pending</Tab>
+    <Tab value="archived" disabled>Archived</Tab>
+  </TabList>
+  <TabPanel value="active">Active content...</TabPanel>
+  <TabPanel value="pending">Pending content...</TabPanel>
+</Tabs>`,
+      },
+    ],
+    propDefinitions: [
+      { name: 'defaultValue', type: 'string', description: 'Default active tab (uncontrolled)' },
+      { name: 'value', type: 'string', description: 'Active tab value (controlled)' },
+      { name: 'onChange', type: '(value: string) => void', description: 'Called on tab change' },
+      { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Tab list direction' },
+      { name: 'value (Tab)', type: 'string', required: true, description: 'Unique tab identifier' },
+      { name: 'disabled (Tab)', type: 'boolean', default: 'false', description: 'Disables the tab' },
+      { name: 'value (TabPanel)', type: 'string', required: true, description: 'Matches corresponding Tab' },
+    ],
+    accessibility: [
+      'Full WAI-ARIA Tabs pattern implementation',
+      'TabList uses role="tablist" with aria-orientation',
+      'Tabs use role="tab" with aria-selected and aria-controls',
+      'Panels use role="tabpanel" with aria-labelledby',
+      'Arrow key navigation between tabs (left/right or up/down)',
+      'Home/End keys jump to first/last tab',
+      'Roving tabindex for keyboard focus management',
+    ],
+    dos: [
+      'Use for switching between related content views',
+      'Keep tab labels short and descriptive',
+      'Set a sensible default tab',
+    ],
+    donts: [
+      'Don\'t use more than 6 tabs (consider side navigation)',
+      'Don\'t use tabs for sequential steps (use StepIndicator)',
+      'Don\'t hide critical content behind non-obvious tabs',
+    ],
+    usageCode: `// Controlled tabs
+const [activeTab, setActiveTab] = useState('services');
+
+<Tabs value={activeTab} onChange={setActiveTab}>
+  <TabList>
+    <Tab value="services">Services</Tab>
+    <Tab value="locations">Locations</Tab>
+    <Tab value="faq">FAQ</Tab>
+  </TabList>
+  <TabPanel value="services"><ServicesList /></TabPanel>
+  <TabPanel value="locations"><LocationFinder /></TabPanel>
+  <TabPanel value="faq"><FAQAccordion /></TabPanel>
+</Tabs>`,
+  },
+
+  // ─── Tooltip ───────────────────────────────────────────
+  tooltip: {
+    defaultPreview: (
+      <div className="flex flex-wrap gap-6 items-center justify-center py-8">
+        <Tooltip content="Save your progress" position="top">
+          <button
+            className="px-3 py-1.5 text-sm rounded-md border"
+            style={{
+              borderColor: 'var(--color-border)',
+              color: 'var(--color-text)',
+              backgroundColor: 'var(--color-surface)',
+            }}
+          >
+            Top
+          </button>
+        </Tooltip>
+        <Tooltip content="View more options" position="right">
+          <button
+            className="px-3 py-1.5 text-sm rounded-md border"
+            style={{
+              borderColor: 'var(--color-border)',
+              color: 'var(--color-text)',
+              backgroundColor: 'var(--color-surface)',
+            }}
+          >
+            Right
+          </button>
+        </Tooltip>
+        <Tooltip content="Additional info here" position="bottom">
+          <button
+            className="px-3 py-1.5 text-sm rounded-md border"
+            style={{
+              borderColor: 'var(--color-border)',
+              color: 'var(--color-text)',
+              backgroundColor: 'var(--color-surface)',
+            }}
+          >
+            Bottom
+          </button>
+        </Tooltip>
+        <Tooltip content="Quick help" position="left">
+          <button
+            className="px-3 py-1.5 text-sm rounded-md border"
+            style={{
+              borderColor: 'var(--color-border)',
+              color: 'var(--color-text)',
+              backgroundColor: 'var(--color-surface)',
+            }}
+          >
+            Left
+          </button>
+        </Tooltip>
+      </div>
+    ),
+    defaultCode: `<Tooltip content="Save your progress" position="top">
+  <button>Top</button>
+</Tooltip>
+<Tooltip content="View more options" position="right">
+  <button>Right</button>
+</Tooltip>
+<Tooltip content="Additional info here" position="bottom">
+  <button>Bottom</button>
+</Tooltip>
+<Tooltip content="Quick help" position="left">
+  <button>Left</button>
+</Tooltip>`,
+    propDefinitions: [
+      { name: 'content', type: 'string', required: true, description: 'Tooltip text content' },
+      { name: 'position', type: "'top' | 'right' | 'bottom' | 'left'", default: "'top'", description: 'Position relative to trigger' },
+      { name: 'delayMs', type: 'number', default: '200', description: 'Delay before showing (ms)' },
+      { name: 'children', type: 'ReactElement', required: true, description: 'Trigger element' },
+      { name: 'className', type: 'string', description: 'Additional classes for tooltip bubble' },
+    ],
+    accessibility: [
+      'Uses role="tooltip" on the tooltip element',
+      'Trigger gets aria-describedby linking to tooltip',
+      'Shows on focus for keyboard users, not just hover',
+      'Escape key dismisses the tooltip',
+      'Content is text-only (not interactive) per WCAG',
+    ],
+    dos: [
+      'Use for supplementary, non-essential information',
+      'Keep tooltip text concise (1-2 short sentences max)',
+      'Use on icon-only buttons to provide text labels',
+    ],
+    donts: [
+      'Don\'t put essential information in tooltips',
+      'Don\'t use for interactive content (use a popover instead)',
+      'Don\'t use on elements that aren\'t focusable',
+    ],
+    usageCode: `// Icon button with tooltip
+<Tooltip content="Delete this item">
+  <Button variant="ghost" size="sm" aria-label="Delete">
+    <TrashIcon size={16} />
+  </Button>
+</Tooltip>
+
+// Help text tooltip
+<Tooltip content="Your SSN is required for identity verification">
+  <span className="underline cursor-help">Why do we need this?</span>
+</Tooltip>`,
   },
 };

@@ -57,7 +57,7 @@ export default function TopBar({ theme, onToggleTheme, sidebarOpen, onToggleSide
                 color: 'var(--dogwood-700)',
               }}
             >
-              v0.1
+              v1.0
             </span>
           </div>
         </Link>

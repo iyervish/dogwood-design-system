@@ -58,6 +58,12 @@ export const navigation: NavItem[] = [
   {
     label: 'Templates',
     href: '/templates',
+    children: [
+      { label: 'Agency Homepage', href: '/templates/agency-homepage' },
+      { label: 'DMV Portal', href: '/templates/dmv-portal' },
+      { label: 'Benefit Application', href: '/templates/benefit-application' },
+      { label: 'News & Announcements', href: '/templates/news-announcements' },
+    ],
   },
   {
     label: 'About',

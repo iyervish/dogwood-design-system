@@ -111,21 +111,23 @@ All with React.forwardRef, className via cn(), CSS custom properties, ARIA attri
 
 ## What's Next
 
-### Phase 3: Navigation Components + Patterns
-- [ ] Build 10 Tier 2 components: Header (GovBanner), Footer, SideNavigation, Pagination, Tabs, Modal/Dialog, Banner, StepIndicator, Tooltip, Search
-- [ ] Build 3 priority patterns: Form Pattern, Search Results, Status Tracker
-- [ ] Add component data + registry entries for Tier 2
+### Phase 3: Navigation Components + Patterns — COMPLETE
+- [x] Build 10 Tier 2 components: Header (GovBanner), Footer, SideNavigation, Pagination, Tabs, Modal/Dialog, Banner, StepIndicator, Tooltip, Search
+- [x] Build 3 priority patterns: Form Pattern, Search Results, Status Tracker
+- [x] Add component data + registry entries for Tier 2
 
-### Phase 4: Sample Pages
-- [ ] Build TemplateLayout rendering
-- [ ] Build 4 priority templates: Agency Homepage, DMV Portal, Benefit Application Form, News & Announcements
+### Phase 4: Sample Pages — COMPLETE
+- [x] Build TemplateLayout rendering (with "Back to docs" overlay)
+- [x] Build 4 priority templates: Agency Homepage, DMV Portal, Benefit Application, News & Announcements
+- [x] Wire routes in App.tsx using TemplateLayout
+- [x] Update TemplatesOverview with live demo links (4 built, 3 coming soon)
+- [x] Update navigation.ts with template sub-links
 
 ### Phase 5: Polish + Advanced
 - [ ] Build 8 Tier 3 components: DatePicker, FileInput, ComboBox, Toast, DataTable, ProgressBar, Avatar, Skeleton
-- [ ] Build remaining 3 templates
+- [ ] Build remaining 3 templates (Services & Permits, Contact / Office Finder, Status Tracker)
 - [ ] Build Cmd+K search (SearchDialog.tsx)
-- [ ] Build remaining patterns (4)
-- [ ] Build Icons page, Motion page
+- [ ] Build remaining patterns (4): Authentication, Data Dashboard, Contact Info, News Feed
 - [ ] Lighthouse audit + a11y fixes
 - [ ] Code splitting for bundle size
 - [ ] README.md + LICENSE

@@ -16,6 +16,11 @@ import ComponentPage from './pages/components/ComponentPage';
 import PatternsOverview from './pages/patterns/PatternsOverview';
 import PatternPage from './pages/patterns/PatternPage';
 import TemplatesOverview from './pages/templates/TemplatesOverview';
+import TemplateLayout from './components/docs/TemplateLayout';
+import AgencyHomepage from './pages/templates/AgencyHomepage';
+import DMVPortal from './pages/templates/DMVPortal';
+import BenefitApplication from './pages/templates/BenefitApplication';
+import NewsAnnouncements from './pages/templates/NewsAnnouncements';
 import AboutPage from './pages/AboutPage';
 
 function App() {
@@ -42,6 +47,14 @@ function App() {
           <Route path="/patterns/:slug" element={<PatternPage />} />
           <Route path="/templates" element={<TemplatesOverview />} />
           <Route path="/about" element={<AboutPage />} />
+        </Route>
+
+        {/* Template Demo Routes (full-page, outside DocsLayout) */}
+        <Route element={<TemplateLayout />}>
+          <Route path="/templates/agency-homepage" element={<AgencyHomepage />} />
+          <Route path="/templates/dmv-portal" element={<DMVPortal />} />
+          <Route path="/templates/benefit-application" element={<BenefitApplication />} />
+          <Route path="/templates/news-announcements" element={<NewsAnnouncements />} />
         </Route>
       </Routes>
       <Analytics />

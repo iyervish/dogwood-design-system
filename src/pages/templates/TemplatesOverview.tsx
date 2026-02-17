@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Building2, Car, FileCheck, Newspaper, MapPin, HeartHandshake, ClipboardCheck, ExternalLink } from 'lucide-react';
+import { Building2, Car, FileCheck, Newspaper, MapPin, HeartHandshake, ClipboardCheck, Scale, ExternalLink } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface Template {
@@ -18,6 +18,7 @@ const templates: Template[] = [
   { title: 'DMV Service Portal', icon: Car, description: 'Service menu, appointment scheduling, document checklist.', category: 'Citizen Services', slug: 'dmv-portal' },
   { title: 'Benefit Application', icon: HeartHandshake, description: 'Multi-step wizard, form validation, review and submit.', category: 'Citizen Services', slug: 'benefit-application' },
   { title: 'Status Tracker', icon: ClipboardCheck, description: 'Status timeline, reference lookup, detail cards.', category: 'Citizen Services' },
+  { title: 'SCC Portal', icon: Scale, description: 'Business entity search, UCC filing, sign-in, and helpful links. Based on cis.scc.virginia.gov.', category: 'Real-World Reimagined', slug: 'scc-portal' },
 ];
 
 export default function TemplatesOverview() {

@@ -21,6 +21,7 @@ import AgencyHomepage from './pages/templates/AgencyHomepage';
 import DMVPortal from './pages/templates/DMVPortal';
 import BenefitApplication from './pages/templates/BenefitApplication';
 import NewsAnnouncements from './pages/templates/NewsAnnouncements';
+import SCCPortal from './pages/templates/SCCPortal';
 import AboutPage from './pages/AboutPage';
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
           <Route path="/templates/dmv-portal" element={<DMVPortal />} />
           <Route path="/templates/benefit-application" element={<BenefitApplication />} />
           <Route path="/templates/news-announcements" element={<NewsAnnouncements />} />
+          <Route path="/templates/scc-portal" element={<SCCPortal />} />
         </Route>
       </Routes>
       <Analytics />

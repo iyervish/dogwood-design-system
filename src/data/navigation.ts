@@ -63,6 +63,7 @@ export const navigation: NavItem[] = [
       { label: 'DMV Portal', href: '/templates/dmv-portal' },
       { label: 'Benefit Application', href: '/templates/benefit-application' },
       { label: 'News & Announcements', href: '/templates/news-announcements' },
+      { label: 'SCC Portal', href: '/templates/scc-portal' },
     ],
   },
   {

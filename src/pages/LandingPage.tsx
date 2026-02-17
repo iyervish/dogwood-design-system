@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Github, Moon, Sun, Shield, Accessibility, Eye, Paintbrush, MonitorSmartphone } from 'lucide-react';
+import { ArrowRight, Github, Moon, Sun, Shield, Eye, Users, MapPin, Smartphone, Zap } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { motion } from 'framer-motion';
 import { Button } from '../components/ui/Button';
@@ -55,10 +55,12 @@ const stats = [
 ];
 
 const principles = [
-  { icon: Accessibility, title: 'Accessible First', desc: 'WCAG 2.1 AA is the floor. Keyboard nav, screen readers, contrast — every citizen, every ability.' },
-  { icon: Eye, title: 'Consistent', desc: 'One system across 80+ agencies. Citizens learn once, use everywhere.' },
-  { icon: Paintbrush, title: 'Virginia Identity', desc: 'Colors from our geography. Fonts chosen for government trust. Distinctly Commonwealth.' },
-  { icon: MonitorSmartphone, title: 'Mobile-Ready', desc: 'Responsive by default. Most citizens access services on their phones.' },
+  { icon: Eye, title: 'Consistent & Predictable', desc: 'Citizens shouldn\'t have to relearn how government works on every website. Shared patterns, shared language, shared interactions across all 80+ agencies.' },
+  { icon: Users, title: 'Citizen-Centered', desc: 'Every design decision starts with the citizen. Clear language, obvious actions, minimal cognitive load. Government services should be as easy as the best consumer products.' },
+  { icon: MapPin, title: 'Virginia-First Identity', desc: 'Not a generic system — a Virginia system. Colors named after our geography, typography chosen for government trust, patterns designed for Commonwealth services.' },
+  { icon: Smartphone, title: 'Mobile-Ready', desc: 'Most Virginians access government services on their phones. Every component is responsive by default and optimized for touch interactions.' },
+  { icon: Zap, title: 'Performance-Minded', desc: 'Fast load times aren\'t a nice-to-have — they\'re equity. Citizens on slow connections and older devices deserve the same experience as everyone else.' },
+  { icon: Shield, title: 'Accessible First', desc: 'WCAG 2.1 AA is the floor, not the ceiling. Every component is keyboard navigable, screen-reader compatible, and meets contrast requirements. Government services must work for every citizen.' },
 ];
 
 export default function LandingPage() {

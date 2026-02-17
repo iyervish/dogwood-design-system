@@ -14,23 +14,50 @@ import {
   BookOpen,
   CheckCircle,
   Lock,
+  ArrowRight,
+  Briefcase,
+  Shield,
 } from 'lucide-react';
 import { GovBanner } from '../../components/ui/GovBanner';
 import { Footer } from '../../components/ui/Footer';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card';
+import { Card, CardContent } from '../../components/ui/Card';
 import { Tabs, TabList, Tab, TabPanel } from '../../components/ui/Tabs';
 import { RadioGroup } from '../../components/ui/Radio';
 import { Accordion, AccordionItem } from '../../components/ui/Accordion';
 
 const quickServices = [
-  { icon: SearchIcon, label: 'Entity Search', description: 'Look up any business registered in Virginia' },
-  { icon: CheckCircle, label: 'Certificate Verification', description: 'Verify a certificate of good standing' },
-  { icon: FileText, label: 'Check Name Availability', description: 'See if a business name is available' },
-  { icon: Download, label: 'Download Reports', description: 'Access public filing data and images' },
-  { icon: CreditCard, label: 'Pay Fees Online', description: 'Pay annual registration fees' },
-  { icon: SearchIcon, label: 'Property Owner Search', description: 'Nonresident property owner lookup' },
+  { icon: SearchIcon, label: 'Entity Search', description: 'Look up any registered business', color: 'var(--blue-ridge-600)', bg: 'var(--blue-ridge-50)' },
+  { icon: CheckCircle, label: 'Certificate Verification', description: 'Verify a certificate of good standing', color: 'var(--shenandoah-600)', bg: 'var(--shenandoah-50)' },
+  { icon: FileText, label: 'Name Availability', description: 'Check if a business name is available', color: 'var(--chesapeake-600)', bg: 'var(--chesapeake-50)' },
+  { icon: Download, label: 'Download Reports', description: 'Access public filing data and images', color: 'var(--blue-ridge-600)', bg: 'var(--blue-ridge-50)' },
+  { icon: CreditCard, label: 'Pay Fees Online', description: 'Pay annual registration fees', color: 'var(--dogwood-600)', bg: 'var(--dogwood-50)' },
+  { icon: Briefcase, label: 'Property Owner Search', description: 'Nonresident property owner lookup', color: 'var(--chesapeake-600)', bg: 'var(--chesapeake-50)' },
+];
+
+const helpLinks = [
+  {
+    icon: HelpCircle,
+    title: 'Using CIS',
+    color: 'var(--blue-ridge-600)',
+    bg: 'var(--blue-ridge-50)',
+    links: ['Create a CIS Account', 'Pay Fees Online', 'Online Help'],
+  },
+  {
+    icon: Building2,
+    title: 'Business Services',
+    color: 'var(--chesapeake-600)',
+    bg: 'var(--chesapeake-50)',
+    links: ['Certificate Verification', 'Check Name Availability', 'Download Reports', 'Download Data and Images', 'Nonresident Property Owner Search'],
+  },
+  {
+    icon: BookOpen,
+    title: 'Resources',
+    color: 'var(--shenandoah-600)',
+    bg: 'var(--shenandoah-50)',
+    links: ['Business Frequently Asked Questions', 'Existing Business Resources', 'New Business Resources'],
+  },
 ];
 
 export default function SCCPortal() {
@@ -38,171 +65,340 @@ export default function SCCPortal() {
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-background)' }}>
       <GovBanner />
 
-      {/* Header */}
-      <header
-        style={{
-          background: 'linear-gradient(135deg, var(--blue-ridge-950) 0%, var(--blue-ridge-800) 100%)',
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-4 py-6 md:py-8">
-          <div className="flex items-center gap-4">
+      {/* ─── Header + Hero ─── */}
+      <header className="relative overflow-hidden" style={{ backgroundColor: 'var(--blue-ridge-950)' }}>
+        {/* Topographic texture */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" className="opacity-100">
+            <defs>
+              <pattern id="scc-topo" x="0" y="0" width="700" height="350" patternUnits="userSpaceOnUse">
+                <path d="M0 175 Q175 100 350 175 T700 175" fill="none" stroke="var(--blue-ridge-900)" strokeWidth="1" />
+                <path d="M0 155 Q175 80 350 155 T700 155" fill="none" stroke="var(--blue-ridge-900)" strokeWidth="0.7" />
+                <path d="M0 195 Q175 120 350 195 T700 195" fill="none" stroke="var(--blue-ridge-900)" strokeWidth="0.7" />
+                <path d="M0 135 Q140 60 350 135 T700 135" fill="none" stroke="var(--blue-ridge-900)" strokeWidth="0.5" opacity="0.6" />
+                <path d="M0 215 Q210 140 350 215 T700 215" fill="none" stroke="var(--blue-ridge-900)" strokeWidth="0.5" opacity="0.6" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#scc-topo)" />
+          </svg>
+        </div>
+
+        {/* Decorative gold accent line */}
+        <div
+          className="absolute top-0 left-0 right-0 h-1"
+          style={{ background: 'linear-gradient(90deg, var(--dogwood-500), var(--dogwood-300), var(--dogwood-500))' }}
+        />
+
+        {/* Nav bar */}
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-4 flex items-center justify-between">
+          <div className="flex items-center gap-3.5">
             <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-              style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)' }}
+              className="w-11 h-11 rounded-xl flex items-center justify-center"
+              style={{ backgroundColor: 'rgba(212,168,50,0.15)', border: '1px solid rgba(212,168,50,0.2)' }}
             >
-              <Scale size={24} className="text-white" />
+              <Scale size={22} style={{ color: 'var(--dogwood-400)' }} />
             </div>
             <div>
               <p
-                className="text-xl md:text-2xl font-bold text-white leading-tight"
+                className="text-base md:text-lg font-bold text-white leading-tight"
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 State Corporation Commission
               </p>
-              <p className="text-sm text-white/60 mt-0.5">
+              <p className="text-xs" style={{ color: 'var(--blue-ridge-400)' }}>
                 Clerk's Information System
               </p>
+            </div>
+          </div>
+          <div className="hidden md:flex items-center gap-5">
+            {['Business Home', 'Filing Help', 'Contact'].map(item => (
+              <a
+                key={item}
+                href="#"
+                className="text-sm no-underline transition-colors hover:text-white"
+                style={{ color: 'var(--blue-ridge-300)' }}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Hero content */}
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pb-14 pt-6 md:pt-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left: Search Area */}
+            <div className="lg:col-span-7 xl:col-span-8">
+              <div className="mb-8">
+                <h1
+                  className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-3"
+                  style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em' }}
+                >
+                  Search Virginia
+                  <br />
+                  <span style={{ color: 'var(--dogwood-400)' }}>business records</span>
+                </h1>
+                <p className="text-sm md:text-base max-w-lg" style={{ color: 'var(--blue-ridge-300)', lineHeight: 1.6 }}>
+                  Look up any entity registered with the Commonwealth — view filing history,
+                  registered agents, and download documents.
+                </p>
+              </div>
+
+              {/* Entity search — glass card */}
+              <div
+                className="rounded-xl p-5 md:p-6"
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(12px)',
+                }}
+              >
+                <Tabs defaultValue="name">
+                  <TabList>
+                    <Tab value="name">By Name</Tab>
+                    <Tab value="id">By Entity ID</Tab>
+                  </TabList>
+
+                  <TabPanel value="name">
+                    <div className="flex flex-col sm:flex-row gap-3 mt-1">
+                      <div className="flex-1">
+                        <Input
+                          label="Entity Name"
+                          placeholder="e.g. Dominion Energy, Acme LLC..."
+                        />
+                      </div>
+                      <div className="flex items-end gap-2">
+                        <Button>
+                          <SearchIcon size={16} />
+                          Search
+                        </Button>
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      className="inline-flex items-center gap-1 mt-3 text-xs font-medium no-underline transition-colors hover:opacity-80"
+                      style={{ color: 'var(--dogwood-400)' }}
+                    >
+                      Advanced Search
+                      <ArrowRight size={12} />
+                    </a>
+                  </TabPanel>
+
+                  <TabPanel value="id">
+                    <div className="flex flex-col sm:flex-row gap-3 mt-1">
+                      <div className="flex-1">
+                        <Input
+                          label="Entity ID"
+                          placeholder="7-digit SCC identification number"
+                        />
+                      </div>
+                      <div className="flex items-end gap-2">
+                        <Button>
+                          <SearchIcon size={16} />
+                          Search
+                        </Button>
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      className="inline-flex items-center gap-1 mt-3 text-xs font-medium no-underline transition-colors hover:opacity-80"
+                      style={{ color: 'var(--dogwood-400)' }}
+                    >
+                      Advanced Search
+                      <ArrowRight size={12} />
+                    </a>
+                  </TabPanel>
+                </Tabs>
+              </div>
+
+              {/* Stat chips */}
+              <div className="flex flex-wrap items-center gap-3 mt-6">
+                {[
+                  { value: '800K+', label: 'Registered Entities' },
+                  { value: '24/7', label: 'Online Access' },
+                  { value: 'Free', label: 'Public Searches' },
+                ].map(stat => (
+                  <div
+                    key={stat.label}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  >
+                    <span className="text-sm font-bold" style={{ color: 'var(--dogwood-400)' }}>{stat.value}</span>
+                    <span className="text-xs" style={{ color: 'var(--blue-ridge-300)' }}>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Sign In Panel */}
+            <div className="lg:col-span-5 xl:col-span-4">
+              <div
+                className="rounded-xl overflow-hidden"
+                style={{
+                  backgroundColor: 'var(--color-surface)',
+                  boxShadow: '0 25px 50px -12px rgba(0,0,0,0.4)',
+                }}
+              >
+                {/* Card accent top */}
+                <div
+                  className="h-1"
+                  style={{ background: 'linear-gradient(90deg, var(--dogwood-500), var(--dogwood-300))' }}
+                />
+
+                <div className="p-5 md:p-6">
+                  <div className="flex items-center gap-2.5 mb-1">
+                    <div
+                      className="w-8 h-8 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: 'var(--blue-ridge-50)', color: 'var(--blue-ridge-600)' }}
+                    >
+                      <Lock size={15} />
+                    </div>
+                    <h2
+                      className="text-base font-bold"
+                      style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}
+                    >
+                      Sign In
+                    </h2>
+                  </div>
+                  <p className="text-xs mb-5" style={{ color: 'var(--color-text-muted)' }}>
+                    Complete filings, make payments, and manage business activities.
+                  </p>
+
+                  <div className="space-y-3.5">
+                    <Input label="Username" required placeholder="Username" size="sm" />
+                    <Input label="Password" type="password" required placeholder="Password" size="sm" />
+
+                    <div className="flex items-center justify-between pt-0.5">
+                      <Button size="sm">
+                        <LogIn size={14} />
+                        Sign In
+                      </Button>
+                      <a
+                        href="#"
+                        className="text-xs no-underline transition-colors hover:opacity-70"
+                        style={{ color: 'var(--color-primary)' }}
+                      >
+                        Forgot password?
+                      </a>
+                    </div>
+                  </div>
+
+                  <div
+                    className="mt-5 pt-4 border-t"
+                    style={{ borderColor: 'var(--color-border)' }}
+                  >
+                    <Button size="sm" variant="outline" className="w-full justify-center">
+                      <UserPlus size={14} />
+                      Create a CIS Account
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1">
-        {/* Sign In + Search Hero */}
-        <section className="max-w-6xl mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      {/* ─── Quick Services ─── */}
+      <section className="relative">
+        {/* Overlap pull-up */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 -mt-0 pt-10 pb-10">
+          <div className="flex items-end justify-between mb-6">
+            <div>
+              <p
+                className="text-xs font-semibold tracking-[0.15em] uppercase mb-1.5"
+                style={{ color: 'var(--dogwood-600)' }}
+              >
+                No login required
+              </p>
+              <h2
+                className="text-xl md:text-2xl font-bold"
+                style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)', letterSpacing: '-0.01em' }}
+              >
+                Business Services
+              </h2>
+            </div>
+          </div>
 
-            {/* Sign In Card */}
-            <Card variant="outline" className="lg:col-span-2">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Lock size={16} style={{ color: 'var(--color-primary)' }} />
-                  <CardTitle className="text-base">Sign In</CardTitle>
-                </div>
-                <CardDescription>
-                  Log in to complete filings, make payments, and manage your business activities.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <Input label="Username" required placeholder="Enter your username" />
-                  <Input label="Password" type="password" required placeholder="Enter your password" />
-
-                  <div className="flex items-center justify-between pt-1">
-                    <Button size="sm">
-                      <LogIn size={16} />
-                      Sign In
-                    </Button>
-                    <a
-                      href="#"
-                      className="text-xs font-medium no-underline transition-colors hover:opacity-70"
-                      style={{ color: 'var(--color-primary)' }}
-                    >
-                      Forgot your password?
-                    </a>
-                  </div>
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {quickServices.map(service => {
+              const Icon = service.icon;
+              return (
+                <a
+                  key={service.label}
+                  href="#"
+                  className="group flex items-center gap-3.5 p-4 rounded-xl border no-underline transition-all hover:shadow-lg"
+                  style={{
+                    borderColor: 'var(--color-border)',
+                    backgroundColor: 'var(--color-surface)',
+                  }}
+                >
                   <div
-                    className="pt-4 mt-4 border-t flex items-center justify-between"
-                    style={{ borderColor: 'var(--color-border)' }}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                    style={{ backgroundColor: service.bg, color: service.color }}
                   >
-                    <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
-                      Don't have an account?
+                    <Icon size={19} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p
+                      className="text-sm font-semibold mb-0.5"
+                      style={{ color: 'var(--color-text)' }}
+                    >
+                      {service.label}
                     </p>
-                    <Button size="sm" variant="outline">
-                      <UserPlus size={14} />
-                      Register
-                    </Button>
+                    <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                      {service.description}
+                    </p>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                  <ChevronRight
+                    size={16}
+                    className="shrink-0 transition-transform group-hover:translate-x-0.5"
+                    style={{ color: 'var(--color-text-muted)' }}
+                  />
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-            {/* Search Cards */}
-            <div className="lg:col-span-3 space-y-6">
-              {/* Business Entity Search */}
+      {/* ─── UCC Search ─── */}
+      <section
+        className="border-t"
+        style={{ backgroundColor: 'var(--color-background-subtle)', borderColor: 'var(--color-border)' }}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-5">
+              <p
+                className="text-xs font-semibold tracking-[0.15em] uppercase mb-1.5"
+                style={{ color: 'var(--dogwood-600)' }}
+              >
+                Public Records
+              </p>
+              <h2
+                className="text-xl md:text-2xl font-bold mb-3"
+                style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)', letterSpacing: '-0.01em' }}
+              >
+                UCC & Federal Lien Search
+              </h2>
+              <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--color-text-secondary)' }}>
+                Search Uniform Commercial Code and federal lien records filed
+                with the State Corporation Commission.
+              </p>
+              <div
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
+                style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}
+              >
+                <Shield size={13} style={{ color: 'var(--shenandoah-500)' }} />
+                <span style={{ color: 'var(--color-text-muted)' }}>
+                  UCC Certification Date: <strong style={{ color: 'var(--color-text)' }}>Feb 17, 2026</strong>
+                </span>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
               <Card variant="outline">
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <Building2 size={16} style={{ color: 'var(--color-primary)' }} />
-                    <CardTitle className="text-base">Business Entity Search</CardTitle>
-                  </div>
-                  <CardDescription>
-                    Search for businesses registered with the Commonwealth. View filing history,
-                    registered agent information, and download filing images — no login required.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Tabs defaultValue="name">
-                    <TabList>
-                      <Tab value="name">Search by Name</Tab>
-                      <Tab value="id">Search by Entity ID</Tab>
-                    </TabList>
-
-                    <TabPanel value="name">
-                      <div className="space-y-4">
-                        <Input
-                          label="Entity Name"
-                          placeholder="Enter business name..."
-                          helperText='Use "Contains" for partial matches or "Starts with" for exact prefix.'
-                        />
-                        <div className="flex items-center gap-3">
-                          <Button size="sm">
-                            <SearchIcon size={16} />
-                            Search
-                          </Button>
-                          <a
-                            href="#"
-                            className="text-sm font-medium no-underline transition-colors hover:opacity-70"
-                            style={{ color: 'var(--color-primary)' }}
-                          >
-                            Advanced Search
-                          </a>
-                        </div>
-                      </div>
-                    </TabPanel>
-
-                    <TabPanel value="id">
-                      <div className="space-y-4">
-                        <Input
-                          label="Entity ID"
-                          placeholder="Enter SCC entity ID number..."
-                          helperText="The 7-digit identification number assigned by the SCC."
-                        />
-                        <div className="flex items-center gap-3">
-                          <Button size="sm">
-                            <SearchIcon size={16} />
-                            Search
-                          </Button>
-                          <a
-                            href="#"
-                            className="text-sm font-medium no-underline transition-colors hover:opacity-70"
-                            style={{ color: 'var(--color-primary)' }}
-                          >
-                            Advanced Search
-                          </a>
-                        </div>
-                      </div>
-                    </TabPanel>
-                  </Tabs>
-                </CardContent>
-              </Card>
-
-              {/* UCC Search */}
-              <Card variant="outline">
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <FileText size={16} style={{ color: 'var(--color-primary)' }} />
-                    <CardTitle className="text-base">UCC and Federal Lien Search</CardTitle>
-                  </div>
-                  <CardDescription>
-                    <span>Search Uniform Commercial Code and federal lien records.</span>
-                    <span className="block mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
-                      UCC Certification Date: February 17, 2026
-                    </span>
-                  </CardDescription>
-                </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <RadioGroup
@@ -222,14 +418,15 @@ export default function SCCPortal() {
                     <div className="flex items-center gap-3">
                       <Button size="sm">
                         <SearchIcon size={16} />
-                        Search
+                        Search Records
                       </Button>
                       <a
                         href="#"
-                        className="text-sm font-medium no-underline transition-colors hover:opacity-70"
+                        className="inline-flex items-center gap-1 text-sm font-medium no-underline transition-colors hover:opacity-70"
                         style={{ color: 'var(--color-primary)' }}
                       >
                         Advanced Search
+                        <ArrowRight size={13} />
                       </a>
                     </div>
                   </div>
@@ -237,214 +434,120 @@ export default function SCCPortal() {
               </Card>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Quick Services Grid */}
-        <section
-          className="border-t border-b"
-          style={{ backgroundColor: 'var(--color-background-subtle)', borderColor: 'var(--color-border)' }}
-        >
-          <div className="max-w-6xl mx-auto px-4 py-10">
-            <h2
-              className="text-xl font-bold mb-2"
-              style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}
-            >
-              Business Services
-            </h2>
-            <p className="text-sm mb-6" style={{ color: 'var(--color-text-muted)' }}>
-              No login required for these services.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {quickServices.map(service => {
-                const Icon = service.icon;
-                return (
-                  <a
-                    key={service.label}
-                    href="#"
-                    className="flex items-start gap-3 p-4 rounded-lg border no-underline transition-all hover:shadow-md"
-                    style={{
-                      borderColor: 'var(--color-border)',
-                      backgroundColor: 'var(--color-surface)',
-                    }}
-                  >
-                    <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: 'var(--blue-ridge-50)', color: 'var(--blue-ridge-600)' }}
-                    >
-                      <Icon size={18} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p
-                        className="text-sm font-semibold mb-0.5"
-                        style={{ color: 'var(--color-text)', fontFamily: 'var(--font-body)' }}
-                      >
-                        {service.label}
-                      </p>
-                      <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
-                        {service.description}
-                      </p>
-                    </div>
-                    <ChevronRight size={14} className="shrink-0 mt-1" style={{ color: 'var(--color-text-muted)' }} />
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Helpful Links */}
-        <section className="max-w-6xl mx-auto px-4 py-10">
+      {/* ─── Helpful Links ─── */}
+      <section className="border-t" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+          <p
+            className="text-xs font-semibold tracking-[0.15em] uppercase mb-1.5"
+            style={{ color: 'var(--dogwood-600)' }}
+          >
+            Quick Links
+          </p>
           <h2
-            className="text-xl font-bold mb-6"
-            style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}
+            className="text-xl md:text-2xl font-bold mb-8"
+            style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)', letterSpacing: '-0.01em' }}
           >
             Helpful Links
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Using CIS */}
-            <Card variant="outline">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <HelpCircle size={16} style={{ color: 'var(--chesapeake-600)' }} />
-                  <CardTitle className="text-sm">Using CIS</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-none p-0 m-0 space-y-2.5">
-                  {['Create a CIS Account', 'Pay Fees Online', 'Online Help'].map(link => (
-                    <li key={link}>
-                      <a
-                        href="#"
-                        className="flex items-center gap-2 text-sm no-underline transition-colors hover:opacity-70"
-                        style={{ color: 'var(--color-primary)' }}
-                      >
-                        <ExternalLink size={12} className="shrink-0" />
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {helpLinks.map(group => {
+              const Icon = group.icon;
+              return (
+                <div
+                  key={group.title}
+                  className="rounded-xl border overflow-hidden"
+                  style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}
+                >
+                  {/* Colored top accent */}
+                  <div className="h-1" style={{ backgroundColor: group.color }} />
 
-            {/* Business Services */}
-            <Card variant="outline">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Building2 size={16} style={{ color: 'var(--chesapeake-600)' }} />
-                  <CardTitle className="text-sm">Business Services</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-none p-0 m-0 space-y-2.5">
-                  {[
-                    'Certificate Verification',
-                    'Check Name Availability',
-                    'Download Reports',
-                    'Download Data and Images',
-                    'Nonresident Property Owner Search',
-                  ].map(link => (
-                    <li key={link}>
-                      <a
-                        href="#"
-                        className="flex items-center gap-2 text-sm no-underline transition-colors hover:opacity-70"
-                        style={{ color: 'var(--color-primary)' }}
+                  <div className="p-5">
+                    <div className="flex items-center gap-2.5 mb-4">
+                      <div
+                        className="w-8 h-8 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: group.bg, color: group.color }}
                       >
-                        <ExternalLink size={12} className="shrink-0" />
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                        <Icon size={15} />
+                      </div>
+                      <h3
+                        className="text-sm font-bold"
+                        style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}
+                      >
+                        {group.title}
+                      </h3>
+                    </div>
 
-            {/* Resources */}
-            <Card variant="outline">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <BookOpen size={16} style={{ color: 'var(--chesapeake-600)' }} />
-                  <CardTitle className="text-sm">Resources</CardTitle>
+                    <ul className="list-none p-0 m-0 space-y-0">
+                      {group.links.map((link, idx) => (
+                        <li
+                          key={link}
+                          className="border-t first:border-t-0"
+                          style={{ borderColor: 'var(--color-border)' }}
+                        >
+                          <a
+                            href="#"
+                            className="flex items-center justify-between py-2.5 text-sm no-underline transition-colors hover:opacity-70"
+                            style={{ color: 'var(--color-primary)' }}
+                          >
+                            <span>{link}</span>
+                            <ChevronRight size={13} style={{ color: 'var(--color-text-muted)' }} />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-none p-0 m-0 space-y-2.5">
-                  {[
-                    'Business Frequently Asked Questions',
-                    'Existing Business Resources',
-                    'New Business Resources',
-                  ].map(link => (
-                    <li key={link}>
-                      <a
-                        href="#"
-                        className="flex items-center gap-2 text-sm no-underline transition-colors hover:opacity-70"
-                        style={{ color: 'var(--color-primary)' }}
-                      >
-                        <ExternalLink size={12} className="shrink-0" />
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+              );
+            })}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Terms and Conditions */}
-        <section
-          className="border-t"
-          style={{ backgroundColor: 'var(--color-background-subtle)', borderColor: 'var(--color-border)' }}
-        >
-          <div className="max-w-6xl mx-auto px-4 py-8">
-            <Accordion type="single">
-              <AccordionItem
-                value="terms"
-                title="Terms and Conditions of Use"
-              >
-                <div className="space-y-3 text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-                  <p>
-                    This Clerk's Information System (CIS) is the property of the State Corporation
-                    Commission (SCC) of the Commonwealth of Virginia. Only persons authorized by the SCC
-                    are permitted to access and use the CIS.
-                  </p>
-                  <p className="font-medium" style={{ color: 'var(--color-text)' }}>
-                    Authorized uses of the CIS include:
-                  </p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>File or submit business entity documents for new and existing businesses</li>
-                    <li>Pay business entity annual registration fees</li>
-                    <li>Reinstate business entities</li>
-                    <li>File Uniform Commercial Code (UCC) and federal lien documents</li>
-                    <li>Serve process on the Clerk as statutory agent</li>
-                  </ul>
-                  <p>
-                    The SCC monitors the use of the CIS to ensure proper functioning of the system and
-                    to provide security for the system's operation. Such monitoring may include, but is
-                    not limited to: network traffic, application and data access, user commands, and data content.
-                  </p>
-                  <p>
-                    Unauthorized use, misuse, or abuse of the CIS or the information contained in the CIS
-                    will result in loss of authorized access, potential civil penalties or sanctions, and the
-                    reporting evidence of such actions to federal, state and local law enforcement for
-                    investigation and prosecution.
-                  </p>
-                  <p>
-                    By proceeding with the login process or by creating an account to use the CIS, you
-                    acknowledge and agree to these Terms and Conditions of Use.
-                  </p>
-                </div>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </section>
-      </main>
+      {/* ─── Terms ─── */}
+      <section
+        className="border-t"
+        style={{ backgroundColor: 'var(--color-background-subtle)', borderColor: 'var(--color-border)' }}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+          <Accordion type="single">
+            <AccordionItem value="terms" title="Terms and Conditions of Use">
+              <div className="space-y-3 text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                <p>
+                  This Clerk's Information System (CIS) is the property of the State Corporation
+                  Commission (SCC) of the Commonwealth of Virginia. Only persons authorized by the SCC
+                  are permitted to access and use the CIS.
+                </p>
+                <p className="font-medium" style={{ color: 'var(--color-text)' }}>
+                  Authorized uses of the CIS include:
+                </p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>File or submit business entity documents for new and existing businesses</li>
+                  <li>Pay business entity annual registration fees</li>
+                  <li>Reinstate business entities</li>
+                  <li>File Uniform Commercial Code (UCC) and federal lien documents</li>
+                  <li>Serve process on the Clerk as statutory agent</li>
+                </ul>
+                <p>
+                  The SCC monitors the use of the CIS to ensure proper functioning and security.
+                  Unauthorized use will result in loss of access, potential civil penalties,
+                  and reporting to law enforcement for investigation.
+                </p>
+                <p>
+                  By proceeding with login or account creation, you acknowledge and agree to these
+                  Terms and Conditions of Use.
+                </p>
+              </div>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
 
       <Footer
         siteName="State Corporation Commission"
-        variant="default"
         linkGroups={[
           {
             title: 'SCC Services',

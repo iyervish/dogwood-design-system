@@ -11,14 +11,15 @@ export default function AboutPage() {
 
       <h2>Why This Exists</h2>
       <p>
-        Virginia has over 80 state agencies, each with different digital experiences.
-        Citizens interact with dozens of these agencies throughout their lives — from
-        getting a driver's license to filing taxes to applying for benefits.
+        Virginia has over 80 state agencies, and most of their digital teams are
+        building from scratch — choosing frameworks, designing components, solving
+        accessibility problems that have already been solved elsewhere.
       </p>
       <p>
-        Every inconsistency forces citizens to relearn how their government works.
-        A unified design system solves this by providing shared components, patterns,
-        and templates that create a consistent, accessible experience across every agency.
+        Dogwood gives every agency a high-quality starting point. Production-ready
+        components, thoughtful patterns, and full-page templates that are accessible,
+        responsive, and well-crafted out of the box — so teams can focus on serving
+        citizens instead of reinventing infrastructure.
       </p>
 
       <h2>Built By Studio Pimmit</h2>

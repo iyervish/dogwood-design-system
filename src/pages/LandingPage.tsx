@@ -55,7 +55,7 @@ const stats = [
 ];
 
 const principles = [
-  { icon: Eye, title: 'Consistent & Predictable', desc: 'Citizens shouldn\'t have to relearn how government works on every website. Shared patterns, shared language, shared interactions across all 80+ agencies.' },
+  { icon: Eye, title: 'High-Quality by Default', desc: 'Agencies shouldn\'t have to start from scratch. Dogwood provides production-ready components, patterns, and templates so every team begins with a solid, well-crafted foundation.' },
   { icon: Users, title: 'Citizen-Centered', desc: 'Every design decision starts with the citizen. Clear language, obvious actions, minimal cognitive load. Government services should be as easy as the best consumer products.' },
   { icon: MapPin, title: 'Virginia-First Identity', desc: 'Not a generic system — a Virginia system. Colors named after our geography, typography chosen for government trust, patterns designed for Commonwealth services.' },
   { icon: Smartphone, title: 'Mobile-Ready', desc: 'Most Virginians access government services on their phones. Every component is responsive by default and optimized for touch interactions.' },
@@ -173,7 +173,7 @@ export default function LandingPage() {
               className="text-lg md:text-xl max-w-2xl mb-10"
               style={{ color: '#829ab1', fontFamily: 'var(--font-body)', lineHeight: 1.65 }}
             >
-              Consistent, accessible, and beautifully crafted components for
+              A high-quality, accessible starting point for
               Virginia's 80+ state agencies. Inspired by USWDS. Rooted in Virginia.
             </motion.p>
 
@@ -253,14 +253,15 @@ export default function LandingPage() {
             className="text-3xl md:text-4xl font-bold mb-6"
             style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)', letterSpacing: '-0.02em', lineHeight: 1.15 }}
           >
-            80+ agencies.<br />80 different experiences.
+            80+ agencies.<br />Most starting from zero.
           </h2>
           <p
             className="text-lg leading-relaxed max-w-xl mx-auto"
             style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-body)', lineHeight: 1.75 }}
           >
-            Every inconsistency forces citizens to relearn how their government works.
-            A unified design system gives Virginia a single, trustworthy digital identity.
+            Every agency team deserves a solid starting point — accessible, well-crafted,
+            and production-ready. Dogwood gives them that foundation so they can focus on
+            serving citizens, not reinventing buttons.
           </p>
         </motion.div>
       </section>

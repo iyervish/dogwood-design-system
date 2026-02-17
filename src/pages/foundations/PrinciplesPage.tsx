@@ -3,8 +3,8 @@ import { Shield, Eye, Users, MapPin, Smartphone, Zap } from 'lucide-react';
 const principles = [
   {
     icon: Eye,
-    title: 'Consistent & Predictable',
-    description: 'Citizens shouldn\'t have to relearn how government works on every website. Shared patterns, shared language, shared interactions across all 80+ agencies.',
+    title: 'High-Quality by Default',
+    description: 'Agencies shouldn\'t have to start from scratch. Dogwood provides production-ready components, patterns, and templates so every team begins with a solid, well-crafted foundation.',
   },
   {
     icon: Users,

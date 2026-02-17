@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Building2,
   Search as SearchIcon,
@@ -6,14 +5,11 @@ import {
   CreditCard,
   Download,
   HelpCircle,
-  ExternalLink,
   ChevronRight,
-  UserPlus,
   LogIn,
   Scale,
   BookOpen,
   CheckCircle,
-  Lock,
   ArrowRight,
   Briefcase,
   Shield,
@@ -121,180 +117,119 @@ export default function SCCPortal() {
                 {item}
               </a>
             ))}
+            <div className="h-4 w-px" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }} />
+            <a
+              href="#"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium no-underline transition-all hover:brightness-110"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: 'white',
+              }}
+            >
+              <LogIn size={14} />
+              Sign In
+            </a>
           </div>
         </div>
 
         {/* Hero content */}
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pb-14 pt-6 md:pt-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left: Search Area */}
-            <div className="lg:col-span-7 xl:col-span-8">
-              <div className="mb-8">
-                <h1
-                  className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-3"
-                  style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em' }}
-                >
-                  Search Virginia
-                  <br />
-                  <span style={{ color: 'var(--dogwood-400)' }}>business records</span>
-                </h1>
-                <p className="text-sm md:text-base max-w-lg" style={{ color: 'var(--blue-ridge-300)', lineHeight: 1.6 }}>
-                  Look up any entity registered with the Commonwealth — view filing history,
-                  registered agents, and download documents.
-                </p>
-              </div>
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pb-16 pt-10 md:pt-16 text-center">
+          <h1
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3"
+            style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em' }}
+          >
+            Search Virginia{' '}
+            <span style={{ color: 'var(--dogwood-400)' }}>business records</span>
+          </h1>
+          <p className="text-sm md:text-base mx-auto max-w-lg mb-8" style={{ color: 'var(--blue-ridge-300)', lineHeight: 1.6 }}>
+            Look up any entity registered with the Commonwealth — view filing history,
+            registered agents, and download documents.
+          </p>
 
-              {/* Entity search — glass card */}
-              <div
-                className="rounded-xl p-5 md:p-6"
-                style={{
-                  backgroundColor: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  backdropFilter: 'blur(12px)',
-                }}
-              >
-                <Tabs defaultValue="name">
-                  <TabList>
-                    <Tab value="name">By Name</Tab>
-                    <Tab value="id">By Entity ID</Tab>
-                  </TabList>
+          {/* Entity search — glass card */}
+          <div
+            className="rounded-xl p-5 md:p-6 text-left"
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+            <Tabs defaultValue="name">
+              <TabList>
+                <Tab value="name">By Name</Tab>
+                <Tab value="id">By Entity ID</Tab>
+              </TabList>
 
-                  <TabPanel value="name">
-                    <div className="flex flex-col sm:flex-row gap-3 mt-1">
-                      <div className="flex-1">
-                        <Input
-                          label="Entity Name"
-                          placeholder="e.g. Dominion Energy, Acme LLC..."
-                        />
-                      </div>
-                      <div className="flex items-end gap-2">
-                        <Button>
-                          <SearchIcon size={16} />
-                          Search
-                        </Button>
-                      </div>
-                    </div>
-                    <a
-                      href="#"
-                      className="inline-flex items-center gap-1 mt-3 text-xs font-medium no-underline transition-colors hover:opacity-80"
-                      style={{ color: 'var(--dogwood-400)' }}
-                    >
-                      Advanced Search
-                      <ArrowRight size={12} />
-                    </a>
-                  </TabPanel>
-
-                  <TabPanel value="id">
-                    <div className="flex flex-col sm:flex-row gap-3 mt-1">
-                      <div className="flex-1">
-                        <Input
-                          label="Entity ID"
-                          placeholder="7-digit SCC identification number"
-                        />
-                      </div>
-                      <div className="flex items-end gap-2">
-                        <Button>
-                          <SearchIcon size={16} />
-                          Search
-                        </Button>
-                      </div>
-                    </div>
-                    <a
-                      href="#"
-                      className="inline-flex items-center gap-1 mt-3 text-xs font-medium no-underline transition-colors hover:opacity-80"
-                      style={{ color: 'var(--dogwood-400)' }}
-                    >
-                      Advanced Search
-                      <ArrowRight size={12} />
-                    </a>
-                  </TabPanel>
-                </Tabs>
-              </div>
-
-              {/* Stat chips */}
-              <div className="flex flex-wrap items-center gap-3 mt-6">
-                {[
-                  { value: '800K+', label: 'Registered Entities' },
-                  { value: '24/7', label: 'Online Access' },
-                  { value: 'Free', label: 'Public Searches' },
-                ].map(stat => (
-                  <div
-                    key={stat.label}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
-                  >
-                    <span className="text-sm font-bold" style={{ color: 'var(--dogwood-400)' }}>{stat.value}</span>
-                    <span className="text-xs" style={{ color: 'var(--blue-ridge-300)' }}>{stat.label}</span>
+              <TabPanel value="name">
+                <div className="flex flex-col sm:flex-row gap-3 mt-1">
+                  <div className="flex-1">
+                    <Input
+                      label="Entity Name"
+                      placeholder="e.g. Dominion Energy, Acme LLC..."
+                    />
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Sign In Panel */}
-            <div className="lg:col-span-5 xl:col-span-4">
-              <div
-                className="rounded-xl overflow-hidden"
-                style={{
-                  backgroundColor: 'var(--color-surface)',
-                  boxShadow: '0 25px 50px -12px rgba(0,0,0,0.4)',
-                }}
-              >
-                {/* Card accent top */}
-                <div
-                  className="h-1"
-                  style={{ background: 'linear-gradient(90deg, var(--dogwood-500), var(--dogwood-300))' }}
-                />
-
-                <div className="p-5 md:p-6">
-                  <div className="flex items-center gap-2.5 mb-1">
-                    <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center"
-                      style={{ backgroundColor: 'var(--blue-ridge-50)', color: 'var(--blue-ridge-600)' }}
-                    >
-                      <Lock size={15} />
-                    </div>
-                    <h2
-                      className="text-base font-bold"
-                      style={{ color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}
-                    >
-                      Sign In
-                    </h2>
-                  </div>
-                  <p className="text-xs mb-5" style={{ color: 'var(--color-text-muted)' }}>
-                    Complete filings, make payments, and manage business activities.
-                  </p>
-
-                  <div className="space-y-3.5">
-                    <Input label="Username" required placeholder="Username" size="sm" />
-                    <Input label="Password" type="password" required placeholder="Password" size="sm" />
-
-                    <div className="flex items-center justify-between pt-0.5">
-                      <Button size="sm">
-                        <LogIn size={14} />
-                        Sign In
-                      </Button>
-                      <a
-                        href="#"
-                        className="text-xs no-underline transition-colors hover:opacity-70"
-                        style={{ color: 'var(--color-primary)' }}
-                      >
-                        Forgot password?
-                      </a>
-                    </div>
-                  </div>
-
-                  <div
-                    className="mt-5 pt-4 border-t"
-                    style={{ borderColor: 'var(--color-border)' }}
-                  >
-                    <Button size="sm" variant="outline" className="w-full justify-center">
-                      <UserPlus size={14} />
-                      Create a CIS Account
+                  <div className="flex items-end gap-2">
+                    <Button>
+                      <SearchIcon size={16} />
+                      Search
                     </Button>
                   </div>
                 </div>
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-1 mt-3 text-xs font-medium no-underline transition-colors hover:opacity-80"
+                  style={{ color: 'var(--dogwood-400)' }}
+                >
+                  Advanced Search
+                  <ArrowRight size={12} />
+                </a>
+              </TabPanel>
+
+              <TabPanel value="id">
+                <div className="flex flex-col sm:flex-row gap-3 mt-1">
+                  <div className="flex-1">
+                    <Input
+                      label="Entity ID"
+                      placeholder="7-digit SCC identification number"
+                    />
+                  </div>
+                  <div className="flex items-end gap-2">
+                    <Button>
+                      <SearchIcon size={16} />
+                      Search
+                    </Button>
+                  </div>
+                </div>
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-1 mt-3 text-xs font-medium no-underline transition-colors hover:opacity-80"
+                  style={{ color: 'var(--dogwood-400)' }}
+                >
+                  Advanced Search
+                  <ArrowRight size={12} />
+                </a>
+              </TabPanel>
+            </Tabs>
+          </div>
+
+          {/* Stat chips */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
+            {[
+              { value: '800K+', label: 'Registered Entities' },
+              { value: '24/7', label: 'Online Access' },
+              { value: 'Free', label: 'Public Searches' },
+            ].map(stat => (
+              <div
+                key={stat.label}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full"
+                style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <span className="text-sm font-bold" style={{ color: 'var(--dogwood-400)' }}>{stat.value}</span>
+                <span className="text-xs" style={{ color: 'var(--blue-ridge-300)' }}>{stat.label}</span>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </header>

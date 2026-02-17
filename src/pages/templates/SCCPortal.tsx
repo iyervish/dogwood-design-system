@@ -136,8 +136,8 @@ export default function SCCPortal() {
         {/* Hero content */}
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 pb-16 pt-10 md:pt-16 text-center">
           <h1
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3"
-            style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em' }}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-3"
+            style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em', color: 'white' }}
           >
             Search Virginia{' '}
             <span style={{ color: 'var(--dogwood-400)' }}>business records</span>
@@ -147,13 +147,12 @@ export default function SCCPortal() {
             registered agents, and download documents.
           </p>
 
-          {/* Entity search — glass card */}
+          {/* Entity search card */}
           <div
             className="rounded-xl p-5 md:p-6 text-left"
             style={{
-              backgroundColor: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(12px)',
+              backgroundColor: 'var(--color-surface)',
+              boxShadow: '0 25px 50px -12px rgba(0,0,0,0.4)',
             }}
           >
             <Tabs defaultValue="name">
